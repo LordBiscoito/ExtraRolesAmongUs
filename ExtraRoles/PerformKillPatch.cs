@@ -95,6 +95,11 @@ namespace ExtraRolesMod
 
             if (MedicSettings.Protected != null && PlayerTools.closestPlayer.PlayerId == MedicSettings.Protected.PlayerId)
             {
+                if (PlayerControl.LocalPlayer.killTimer <= 0)
+                {
+                    MedicSettings.shieldAttacked = true;
+                    PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
+                }
                 //cancel the kill
                 return false;
             }

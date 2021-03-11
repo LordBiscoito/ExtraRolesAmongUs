@@ -141,6 +141,8 @@ namespace ExtraRolesMod
             public static PlayerControl Medic { get; set; }
             public static PlayerControl Protected { get; set; }
             public static bool shieldUsed { get; set; }
+            
+            public static bool shieldAttacked { get; set; }
             public static int medicKillerNameDuration { get; set; }
             public static int medicKillerColorDuration { get; set; }
             public static bool showMedic { get; set; }
@@ -152,6 +154,7 @@ namespace ExtraRolesMod
                 Medic = null;
                 Protected = null;
                 shieldUsed = false;
+                shieldAttacked = false;
             }
 
             public static void SetConfigSettings()
