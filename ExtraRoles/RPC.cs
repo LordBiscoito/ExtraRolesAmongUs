@@ -51,6 +51,7 @@ namespace ExtraRolesMod
         ResetVaribles = 51,
         SetLocalPlayers = 56,
         JokerWin = 57,
+        ShieldDamaged = 58,
     }
 
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.HandleRpc))]
@@ -180,7 +181,8 @@ namespace ExtraRolesMod
                         }
                         break;
                     }
-                case (byte)CustomRPC.JokerWin:
+                case (byte) CustomRPC.JokerWin:
+                {
                     foreach (PlayerControl player in PlayerControl.AllPlayerControls)
                     {
                         player.RemoveInfected();
@@ -191,8 +193,23 @@ namespace ExtraRolesMod
                     JokerSettings.Joker.Revive();
                     JokerSettings.Joker.Data.IsDead = false;
                     JokerSettings.Joker.Data.IsImpostor = true;
+                    break;   
+                }
+                case (byte) CustomRPC.ShieldDamaged:
+                {
+                    foreach (PlayerControl player in PlayerControl.AllPlayerControls)
+                    {
+                        if (player.PlayerId == MedicSettings.Protected.PlayerId)
+                        {
+                            MedicSettings.shieldAttacked = true;
+                            break;
+                        }
+                    }
+
                     break;
+                } 
             }
+            
         }
     }
 }

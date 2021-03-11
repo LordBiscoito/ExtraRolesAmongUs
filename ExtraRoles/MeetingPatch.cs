@@ -11,7 +11,19 @@ using System.Collections;
 
 namespace ExtraRoles
 {
-
+    [HarmonyPatch(typeof(MeetingRoomManager), nameof(MeetingRoomManager.Method_24))]
+    class MeetingStart
+    {
+        static void Postfix()
+        {
+            ConsoleTools.Info("Meeting has started");
+            if (MedicSettings.shieldAttacked)
+            {
+                ConsoleTools.Info($"O cara foi atacado {MedicSettings.Protected.name}"); 
+            }
+        }
+    }
+    
     [HarmonyPatch(typeof(UnityEngine.Object), nameof(UnityEngine.Object.Destroy), new Type[] { typeof(UnityEngine.Object) })]
     class MeetingExiledEnd
     {
@@ -51,6 +63,11 @@ namespace ExtraRoles
         static void Postfix(ExileController __instance)
         {
             OfficerSettings.lastKilled = DateTime.UtcNow.AddMilliseconds(__instance.Duration);
+
+            if (MedicSettings.Protected != null && MedicSettings.shieldAttacked == true)
+            {
+                BreakShield(true);
+            }
         }
     }
 
