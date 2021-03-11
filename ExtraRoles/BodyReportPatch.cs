@@ -11,7 +11,7 @@ namespace ExtraRoles
     {
         static void Postfix(PlayerControl __instance, GameData.PlayerInfo __0)
         {
-            System.Console.WriteLine("Report Bodys!");
+            System.Console.WriteLine("Report Body!");
             byte reporterId = __instance.PlayerId;
             DeadPlayer killer = killedPlayers.Where(x => x.PlayerId == __0.PlayerId).FirstOrDefault();
             if (killer != null)
