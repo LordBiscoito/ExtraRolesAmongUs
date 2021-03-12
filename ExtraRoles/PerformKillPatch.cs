@@ -96,15 +96,12 @@ namespace ExtraRolesMod
             if (MedicSettings.Protected != null && PlayerTools.closestPlayer.PlayerId == MedicSettings.Protected.PlayerId)
             {
                 if (PlayerControl.LocalPlayer.killTimer <= 0)
-                {
-                 //   MedicSettings.shieldAttacked = true;
+                { 
                  MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ShieldDamaged, Hazel.SendOption.None, -1);
                  MedicSettings.shieldAttacked = true;
                  writer.Write(true);
                  AmongUsClient.Instance.FinishRpcImmediately(writer);
-                 //if (AmongUsClient.Instance.AmClient && DestroyableSingleton<HudManager>.Instance){DestroyableSingleton<HudManager>.Instance.Chat.AddChat(MedicSettings.Protected,"algum Puto Tentou Te Matar");}
-                    PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
-                    ConsoleTools.Info("Passou por isso"); 
+                 PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
                 }
                 //cancel the kill
                 return false;

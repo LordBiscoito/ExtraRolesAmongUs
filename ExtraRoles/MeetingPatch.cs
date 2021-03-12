@@ -19,7 +19,13 @@ namespace ExtraRoles
             ConsoleTools.Info("Meeting has started");
             if (MedicSettings.shieldAttacked)
             {
-                ConsoleTools.Info($"O cara foi atacado {MedicSettings.Protected.name}"); 
+
+                if (AmongUsClient.Instance.AmClient && DestroyableSingleton<HudManager>.Instance && 
+                    MedicSettings.Protected.PlayerId == localPlayer.PlayerId)
+                {
+                    DestroyableSingleton<HudManager>.Instance.Chat.AddChat(MedicSettings.Protected,
+                        "Você quase MAMOU! D:");
+                }
             }
         }
     }
